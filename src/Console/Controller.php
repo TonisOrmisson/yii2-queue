@@ -120,6 +120,8 @@ class Controller extends \yii\console\Controller
         $queueSize = intval($this->queue->getSize());
 
         while (true) {
+            $this->stdout("Running new process...\n");
+            $this->runQueueFetching($command, $cwd, $timeout, $env);
             $this->stdout("Queue {$queueSize} \n");
             if($queueSize == 0){
                 $this->stdout("NO Queue, Waiting {$this->queue->waitSecondsIfNoQueue}s to save cpu... \n");
