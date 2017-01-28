@@ -132,6 +132,9 @@ class Controller extends \yii\console\Controller
                 }
             }
 
+            if ($this->sleepTimeout > 0) {
+                sleep($this->sleepTimeout);
+            }
             $this->stdout("Running new process...\n");
             $this->runQueueFetching($command, $cwd, $timeout, $env);
         }
