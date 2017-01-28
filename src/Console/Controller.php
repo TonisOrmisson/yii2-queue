@@ -120,15 +120,18 @@ class Controller extends \yii\console\Controller
         $queueSize = intval($this->queue->getSize());
 
         while (true) {
-            $this->stdout("Queue {$queueSize} \n");
-            if($queueSize == 0){
-                $this->stdout("NO Queue, Waiting {$this->queue->waitSecondsIfNoQueue}s to save cpu... \n");
-                sleep($this->queue->waitSecondsIfNoQueue);
-                $queueSize = $this->queue->getSize();
-            }else{
-                $queueSize--;
-                if($queueSize<=0){
+
+            if($this->queue->waitSecondsIfNoQueue > 0){
+                $this->stdout("Queue {$queueSize} \n");
+                if($queueSize == 0){
+                    $this->stdout("NO Queue, Waiting {$this->queue->waitSecondsIfNoQueue}s to save cpu... \n");
+                    sleep($this->queue->waitSecondsIfNoQueue);
                     $queueSize = $this->queue->getSize();
+                }else{
+                    $queueSize--;
+                    if($queueSize<=0){
+                        $queueSize = $this->queue->getSize();
+                    }
                 }
             }
 

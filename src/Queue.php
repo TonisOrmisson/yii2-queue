@@ -120,7 +120,7 @@ abstract class Queue extends \yii\base\Component
      * to save CPU.
      * @var integer
      */
-    public $waitSecondsIfNoQueue = 10;
+    public $waitSecondsIfNoQueue = 0;
 
     /**
      * Initializes the module.
